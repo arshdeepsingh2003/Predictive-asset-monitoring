@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  # Add your services here
+  
+volumes:
+  # Add your volumes here
+
+networks:
+  # Add your networks here
