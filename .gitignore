@@ -4,3 +4,4 @@ __pycache__/
 models/*.pkl
 models/*.h5
 .ipynb_checkpoints/
+venv/
