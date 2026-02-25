@@ -12,5 +12,5 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 MODEL_PATH = os.path.join(BASE_DIR, "models", "saved_models")
 
 # ML Parameters
-SEQ_LENGTH = 50
+SEQ_LENGTH = 60
 RUL_CAP = 130
