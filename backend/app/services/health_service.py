@@ -1,4 +1,4 @@
-RUL_CAP = 130
+from app.config import RUL_CAP
 
 def compute_health(predicted_rul, anomaly_score, threshold):
     rul_health = predicted_rul / RUL_CAP

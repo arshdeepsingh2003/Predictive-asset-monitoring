@@ -4,7 +4,7 @@ from app.config import MONGO_URL, DATABASE_NAME
 from app.models.rul_model import lstm_model, scaler, threshold
 from app.models.apr_model import apr_model
 
-router = APIRouter(prefix="/debug")
+router = APIRouter()
 
 @router.get("/mongo")
 def test_mongo():

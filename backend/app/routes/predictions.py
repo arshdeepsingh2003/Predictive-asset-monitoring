@@ -16,9 +16,7 @@ def predict(engine_data: EngineData):
 
     predicted_rul = predict_rul(df)
 
-    anomaly_score = compute_anomaly(
-        df.values[-1:].astype(float)
-    )
+    anomaly_score = compute_anomaly(df)
 
     severity = get_severity(anomaly_score)
 

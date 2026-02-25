@@ -1,12 +1,12 @@
 import numpy as np
 from app.config import SEQ_LENGTH
+from app.models.rul_model import FEATURE_LIST
 
 def build_sequence(df):
 
     df = df.sort_values("cycle")
 
-    features = [col for col in df.columns
-                if col not in ["engine_id","cycle","RUL"]]
+    features = FEATURE_LIST
 
     data = df[features].values
 
