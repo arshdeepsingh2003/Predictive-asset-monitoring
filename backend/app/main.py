@@ -1,56 +1,44 @@
 from fastapi import FastAPI
-from pymongo import MongoClient
-from app.config import MONGO_URL, DATABASE_NAME
 
-# Import models correctly
-from app.models.rul_model import lstm_model, scaler, threshold
-from app.models.apr_model import apr_model
+# Import all route modules
+from app.routes import predictions, assets, alerts, dashboard
 
-app = FastAPI()
+# (Optional) debug routes if you created them
+try:
+    from app.routes import debug
+    DEBUG_AVAILABLE = True
+except ImportError:
+    DEBUG_AVAILABLE = False
 
-# ===============================
-# TEST MONGODB CONNECTION
-# ===============================
-@app.get("/test-mongo")
-def test_mongo():
-    try:
-        client = MongoClient(MONGO_URL)
-        db = client[DATABASE_NAME]
-        client.admin.command("ping")   # Strong connection check
 
-        collections = db.list_collection_names()
-
-        return {
-            "status": "MongoDB Connected ✅",
-            "collections": collections
-        }
-
-    except Exception as e:
-        return {
-            "status": "Connection Failed ❌",
-            "error": str(e)
-        }
+app = FastAPI(
+    title="Predictive Asset Monitoring API",
+    description="ML-powered backend for RUL prediction and anomaly detection",
+    version="1.0.0"
+)
 
 
 # ===============================
-# TEST MODEL LOADING
+# Include API Routers
 # ===============================
-@app.get("/test-models")
-def test_models():
-    try:
-        return {
-            "lstm_model_loaded": str(type(lstm_model)),
-            "apr_model_loaded": str(type(apr_model)),
-            "scaler_loaded": str(type(scaler)),
-            "threshold_value": threshold
-        }
-    except Exception as e:
-        return {
-            "status": "Model Loading Failed ❌",
-            "error": str(e)
-        }
 
+app.include_router(predictions.router, prefix="/api")
+app.include_router(assets.router, prefix="/api")
+app.include_router(alerts.router, prefix="/api")
+app.include_router(dashboard.router, prefix="/api")
+
+# Optional debug routes
+if DEBUG_AVAILABLE:
+    app.include_router(debug.router, prefix="/debug")
+
+
+# ===============================
+# Root Endpoint
+# ===============================
 
 @app.get("/")
 def root():
-    return {"message": "Backend Running Successfully 🚀"}
+    return {
+        "message": "Predictive Asset Monitoring API Running 🚀",
+        "status": "healthy"
+    }
