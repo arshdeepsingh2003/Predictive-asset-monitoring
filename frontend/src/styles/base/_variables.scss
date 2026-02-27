@@ -1,12 +1,33 @@
-$primary: #0f172a;
+/* ===============================
+   COLOR SYSTEM
+================================ */
+
+/* PRIMARY COLORS */
+$primary: #2563eb;
 $secondary: #1e293b;
 
-$bg-light: #f8fafc;
+/* BACKGROUND */
+$bg-light: #f4f6f8;
 $bg-dark: #020617;
 
+/* TEXT COLORS */
+$text-light: #ffffff;
+$text-dark: #1f2937;
+
+/* CARD */
+$card-bg: #ffffff;
+
+
+/* ===============================
+   STATUS COLORS
+================================ */
 $success: #22c55e;
 $warning: #f59e0b;
 $danger: #ef4444;
 
-$text-light: #ffffff;
-$text-dark: #0f172a;
+
+/* ===============================
+   UI SETTINGS
+================================ */
+$radius: 12px;
+$shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
