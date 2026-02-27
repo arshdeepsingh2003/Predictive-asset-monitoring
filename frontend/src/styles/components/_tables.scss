@@ -1,0 +1,15 @@
+.alerts-table {
+  width: 100%;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+
+  th, td {
+    padding: 15px;
+    text-align: left;
+  }
+
+  tr:nth-child(even){
+    background:#f8fafc;
+  }
+}
