@@ -1,12 +1,7 @@
-@import "./variables";
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Inter", sans-serif;
-}
+@use "./variables" as *;
 
 body {
+  margin: 0;
+  font-family: Inter, sans-serif;
   background: $bg-light;
 }
