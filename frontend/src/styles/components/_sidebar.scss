@@ -1,0 +1,28 @@
+@use "../base/variables" as *;
+
+.sidebar {
+  width: 240px;
+  height: 100vh;
+  background: $primary;
+  color: white;
+  position: fixed;
+  padding: 25px;
+
+  nav {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    a {
+      color: white;
+      text-decoration: none;
+      opacity: 0.8;
+
+      &.active {
+        opacity: 1;
+        font-weight: bold;
+      }
+    }
+  }
+}

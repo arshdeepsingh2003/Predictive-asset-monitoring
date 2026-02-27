@@ -1,11 +1,15 @@
 import Navbar from "./Navbar";
+import Sidebar from "./Sidebar";
 
 const Layout = ({ children }) => {
   return (
     <>
-      <Navbar />
-      <div style={{ padding: "30px" }}>
-        {children}
+      <Sidebar />
+      <div style={{ marginLeft: "240px" }}>
+        <Navbar />
+        <div style={{ padding: "30px" }}>
+          {children}
+        </div>
       </div>
     </>
   );
