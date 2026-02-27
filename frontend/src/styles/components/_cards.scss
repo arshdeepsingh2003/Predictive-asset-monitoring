@@ -7,6 +7,12 @@
   box-shadow: 0 5px 15px rgba(0,0,0,0.05);
   width: 220px;
 
+  .status-card {
+  padding: 20px;
+  border-radius: 10px;
+  color: white;
+}
+
   &.success { border-left: 5px solid $success; }
   &.warning { border-left: 5px solid $warning; }
   &.danger { border-left: 5px solid $danger; }
@@ -14,4 +20,39 @@
   h2 {
     margin-top: 10px;
   }
+}
+
+.engine-grid {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap:20px;
+  margin-top:20px;
+}
+
+.engine-card {
+  background:white;
+  padding:20px;
+  border-radius:10px;
+}
+
+.progress {
+  height:8px;
+  background:#ddd;
+  border-radius:6px;
+  margin-top:10px;
+}
+
+.bar {
+  height:100%;
+  border-radius:6px;
+}
+
+.NORMAL { background:#22c55e; }
+.WARNING { background:#f59e0b; }
+.CRITICAL { background:#ef4444; }
+
+.badge{
+  padding:5px 12px;
+  border-radius:6px;
+  color:white;
 }

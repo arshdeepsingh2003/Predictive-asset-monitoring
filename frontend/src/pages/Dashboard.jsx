@@ -1,39 +1,40 @@
 import { useEffect, useState } from "react";
 import StatusCard from "../components/cards/StatusCard";
-import EngineCard from "../components/cards/EngineCard";
 import HealthChart from "../components/charts/HealthChart";
-import axios from "axios";
+import api from "../services/api";
 
-const Dashboard = () => {
+export default function Dashboard() {
 
-  const [engines, setEngines] = useState([]);
+  const [stats, setStats] = useState({
+    total: 0,
+    alerts: 0,
+    critical: 0
+  });
 
   useEffect(() => {
-    axios.get("http://127.0.0.1:8000/api/assets")
-      .then(res => setEngines(res.data))
-      .catch(err => console.log(err));
+    fetchDashboard();
   }, []);
+
+  const fetchDashboard = async () => {
+    try {
+      const res = await api.get("/dashboard");
+      setStats(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div>
-
       <h1>Dashboard</h1>
 
-      <div style={{ display: "flex", gap: "20px", margin: "30px 0" }}>
-        <StatusCard title="Total Engines" value={engines.length} />
+      <div className="card-grid">
+        <StatusCard title="Total Engines" value={stats.total}/>
+        <StatusCard title="Active Alerts" value={stats.alerts}/>
+        <StatusCard title="Critical Alerts" value={stats.critical}/>
       </div>
 
-      <div style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
-        {engines.map(engine => (
-          <EngineCard key={engine.engine_id} engine={engine} />
-        ))}
-      </div>
-
-      <h2 style={{ marginTop: "40px" }}>Health Overview</h2>
-      <HealthChart data={engines} />
-
+      <HealthChart />
     </div>
   );
-};
-
-export default Dashboard;
+}

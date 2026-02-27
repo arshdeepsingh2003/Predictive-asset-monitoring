@@ -4,8 +4,7 @@ import "../../styles/components/_sidebar.scss";
 const Sidebar = () => {
   return (
     <div className="sidebar">
-
-      <h2 className="logo">PAM</h2>
+      <h2>PAM</h2>
 
       <nav>
         <NavLink to="/">Dashboard</NavLink>
@@ -13,7 +12,6 @@ const Sidebar = () => {
         <NavLink to="/alerts">Alerts</NavLink>
         <NavLink to="/analytics">Analytics</NavLink>
       </nav>
-
     </div>
   );
 };

@@ -1,17 +1,20 @@
-import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
+import Navbar from "./Navbar";
+import "../../styles/main.scss";
 
 const Layout = ({ children }) => {
   return (
-    <>
+    <div className="layout">
       <Sidebar />
-      <div style={{ marginLeft: "240px" }}>
+
+      <div className="main">
         <Navbar />
-        <div style={{ padding: "30px" }}>
+
+        <div className="page-content">
           {children}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

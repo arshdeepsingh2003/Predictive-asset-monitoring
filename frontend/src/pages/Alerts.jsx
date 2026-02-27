@@ -1,28 +1,21 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../services/api";
+import AlertsTable from "../components/tables/AlertsTable";
 
-const Alerts = () => {
+export default function Alerts() {
 
   const [alerts, setAlerts] = useState([]);
 
   useEffect(() => {
-    axios.get("http://127.0.0.1:8000/api/alerts")
-      .then(res => setAlerts(res.data));
+    api.get("/alerts")
+      .then(res => setAlerts(res.data))
+      .catch(console.error);
   }, []);
 
   return (
     <div>
       <h1>Alerts</h1>
-
-      {alerts.map(alert => (
-        <div key={alert._id} className="alert-card">
-          <h3>Engine {alert.engine_id}</h3>
-          <p>Severity: {alert.severity}</p>
-          <p>Score: {alert.anomaly_score}</p>
-        </div>
-      ))}
+      <AlertsTable alerts={alerts}/>
     </div>
   );
-};
-
-export default Alerts;
+}

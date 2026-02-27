@@ -1,21 +1,13 @@
 import numpy as np
 from app.models.rul_model import lstm_model, scaler
 from app.utils.preprocessing import build_sequence
-from app.config import RUL_CAP
 
+RUL_CAP = 130
 
 def predict_rul(engine_dataframe):
-    """
-    Predict Remaining Useful Life (RUL)
-    for a single engine dataframe.
-    """
 
     sequence = build_sequence(engine_dataframe)
 
-    if sequence is None or len(sequence) == 0:
-        raise ValueError("Invalid sequence generated for prediction.")
-
-    # Scale
     sequence_scaled = scaler.transform(
         sequence.reshape(-1, sequence.shape[-1])
     )
@@ -26,8 +18,16 @@ def predict_rul(engine_dataframe):
         sequence.shape[1]
     )
 
-    # Predict
-    prediction = lstm_model.predict(sequence_scaled, verbose=0)
-    prediction = prediction.flatten()[0] * RUL_CAP
+    prediction = lstm_model.predict(
+        sequence_scaled,
+        verbose=0
+    )[0][0]
 
-    return float(prediction)
+    # ✅ Convert scale
+    predicted_rul = prediction * RUL_CAP
+
+    # ✅ INDUSTRY SAFETY LIMIT
+    predicted_rul = max(0, predicted_rul)
+    predicted_rul = min(RUL_CAP, predicted_rul)
+
+    return float(predicted_rul)
