@@ -1,40 +1,33 @@
 import { useEffect, useState } from "react";
-import StatusCard from "../components/cards/StatusCard";
-import HealthChart from "../components/charts/HealthChart";
-import api from "../services/api";
+import { connectSocket } from "../services/socket";
+import EngineCard from "../components/cards/EngineCard";
 
 export default function Dashboard() {
 
-  const [stats, setStats] = useState({
-    total: 0,
-    alerts: 0,
-    critical: 0
-  });
+  const [assets, setAssets] = useState([]);
 
   useEffect(() => {
-    fetchDashboard();
+
+    connectSocket((data) => {
+      setAssets(data.assets);
+    });
+
   }, []);
 
-  const fetchDashboard = async () => {
-    try {
-      const res = await api.get("/dashboard");
-      setStats(res.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   return (
-    <div>
-      <h1>Dashboard</h1>
+    <div className="dashboard">
 
-      <div className="card-grid">
-        <StatusCard title="Total Engines" value={stats.total}/>
-        <StatusCard title="Active Alerts" value={stats.alerts}/>
-        <StatusCard title="Critical Alerts" value={stats.critical}/>
+      <h2>Realtime Engine Monitoring</h2>
+
+      <div className="engine-grid">
+        {assets.map(engine => (
+          <EngineCard
+            key={engine.engine_id}
+            engine={engine}
+          />
+        ))}
       </div>
 
-      <HealthChart />
     </div>
   );
 }

@@ -1,45 +1,22 @@
-const getColor = (severity) => {
-  switch (severity) {
-    case "CRITICAL":
-      return "#ef4444"; // red
-    case "WARNING":
-      return "#f59e0b"; // orange
-    default:
-      return "#22c55e"; // green
-  }
-};
+export default function EngineCard({ engine }) {
 
-const EngineCard = ({ name, rul, severity }) => {
-
-  const percent = Math.min((rul / 130) * 100, 100);
-  const color = getColor(severity);
+  const getColor = () => {
+    if (engine.severity === "CRITICAL") return "red";
+    if (engine.severity === "WARNING") return "orange";
+    return "green";
+  };
 
   return (
-    <div className="engine-card">
-      <h3>{name}</h3>
+    <div
+      className="engine-card"
+      style={{ borderColor: getColor() }}
+    >
+      <h3>Engine {engine.engine_id}</h3>
 
-      <p>RUL: {rul} cycles</p>
+      <p>RUL: {engine.predicted_rul.toFixed(2)}</p>
+      <p>Health: {(engine.health_index*100).toFixed(1)}%</p>
+      <p>Status: {engine.severity}</p>
 
-      <div className="progress">
-        <div
-          className="bar"
-          style={{
-            width: `${percent}%`,
-            backgroundColor: color,
-          }}
-        />
-      </div>
-
-      <span
-        className="badge"
-        style={{
-          backgroundColor: color,
-        }}
-      >
-        {severity}
-      </span>
     </div>
   );
-};
-
-export default EngineCard;
+}
