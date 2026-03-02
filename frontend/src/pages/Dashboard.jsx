@@ -1,26 +1,36 @@
 import { useEffect, useState } from "react";
-import { connectSocket } from "../services/socket";
+import { connectLive } from "../services/socket";
 import EngineCard from "../components/cards/EngineCard";
 
 export default function Dashboard() {
 
-  const [assets, setAssets] = useState([]);
+  const [engines, setEngines] = useState([]);
 
   useEffect(() => {
 
-    connectSocket((data) => {
-      setAssets(data.assets);
+    // ✅ connect websocket
+    const socket = connectLive((data) => {
+
+      console.log("LIVE DATA:", data);
+
+      // backend sends { assets: [...] }
+      setEngines(data.assets || []);
     });
+
+    // ✅ cleanup (VERY IMPORTANT)
+    return () => {
+      socket?.disconnect();
+    };
 
   }, []);
 
   return (
     <div className="dashboard">
 
-      <h2>Realtime Engine Monitoring</h2>
+      <h2>SAEL Realtime Monitoring</h2>
 
-      <div className="engine-grid">
-        {assets.map(engine => (
+      <div className="grid">
+        {engines.map(engine => (
           <EngineCard
             key={engine.engine_id}
             engine={engine}

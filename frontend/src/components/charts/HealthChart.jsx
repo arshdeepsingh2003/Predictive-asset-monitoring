@@ -7,25 +7,23 @@ import {
   ResponsiveContainer
 } from "recharts";
 
-const dummyData = [
-  { cycle: 1, health: 0.9 },
-  { cycle: 2, health: 0.85 },
-  { cycle: 3, health: 0.8 },
-];
+export default function HealthChart({ data }) {
 
-export default function HealthChart() {
   return (
-    <div className="chart">
-      <h3>Health Overview</h3>
+    <ResponsiveContainer width="100%" height={250}>
+      <LineChart data={data}>
+        <XAxis dataKey="time"/>
+        <YAxis domain={[0,1]} />
+        <Tooltip />
 
-      <ResponsiveContainer width="100%" height={300}>
-        <LineChart data={dummyData}>
-          <XAxis dataKey="cycle"/>
-          <YAxis/>
-          <Tooltip/>
-          <Line type="monotone" dataKey="health"/>
-        </LineChart>
-      </ResponsiveContainer>
-    </div>
+        <Line
+          type="monotone"
+          dataKey="health"
+          strokeWidth={3}
+          dot={false}
+          isAnimationActive={true}
+        />
+      </LineChart>
+    </ResponsiveContainer>
   );
 }

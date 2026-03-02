@@ -1,17 +1,28 @@
-let socket;
+// src/services/socket.js
 
-export const connectSocket = (onMessage) => {
+let socket = null;
 
-  socket = new WebSocket(
-    "ws://localhost:8000/ws/dashboard"
-  );
+export const connectLive = (onMessage) => {
+  socket = new WebSocket("ws://127.0.0.1:8000/ws/live");
+
+  socket.onopen = () => {
+    console.log("✅ Live WebSocket Connected");
+  };
 
   socket.onmessage = (event) => {
     const data = JSON.parse(event.data);
     onMessage(data);
   };
 
-  socket.onclose = () => {
-    console.log("Socket closed");
+  socket.onerror = (err) => {
+    console.error("❌ WebSocket Error:", err);
   };
+
+  socket.onclose = () => {
+    console.log("⚠ WebSocket Closed");
+  };
+};
+
+export const disconnectLive = () => {
+  if (socket) socket.close();
 };
