@@ -1,11 +1,17 @@
-import React from 'react';
+import AlertsTable from "../tables/AlertsTable";
 
-const Assets = () => {
-  return (
-    <div>
-      <h1>Assets Page</h1>
-    </div>
-  );
-};
+export default function Alerts(){
 
-export default Assets;
+return(
+
+<div>
+
+<h2>Alerts & Notifications</h2>
+
+<AlertsTable/>
+
+</div>
+
+)
+
+}

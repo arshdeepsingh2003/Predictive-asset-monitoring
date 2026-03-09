@@ -1,11 +1,37 @@
-import React from 'react';
+export default function AlertsTable({ alerts = [] }) {
 
-const AlertsTable = () => {
-  return (
-    <div>
-      <h1>Alerts Table</h1>
-    </div>
-  );
-};
+if (!alerts || alerts.length === 0) {
+return <p>No alerts available</p>
+}
 
-export default AlertsTable;
+return (
+
+<table className="alerts-table">
+
+<thead>
+<tr>
+<th>Engine</th>
+<th>Severity</th>
+<th>RUL</th>
+</tr>
+</thead>
+
+<tbody>
+
+{alerts.map((alert, index) => (
+
+<tr key={index}>
+<td>{alert.engine_id}</td>
+<td>{alert.severity}</td>
+<td>{Math.round(alert.predicted_rul || 0)}</td>
+</tr>
+
+))}
+
+</tbody>
+
+</table>
+
+)
+
+}

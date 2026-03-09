@@ -1,11 +1,16 @@
-import React from 'react';
+export default function AlertCard({alert}){
 
-const AlertCard = () => {
-  return (
-    <div>
-      <h1>Alert Card</h1>
-    </div>
-  );
-};
+return(
 
-export default AlertCard;
+<div className="alert-card">
+
+<h4>Engine {alert.engine_id}</h4>
+
+<p>Severity: {alert.severity}</p>
+
+<p>RUL: {Math.round(alert.predicted_rul)}</p>
+
+</div>
+
+)
+}
