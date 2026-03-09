@@ -1,1 +1,19 @@
-// Sidebar styles
+.sidebar{
+width:220px;
+background:#0f172a;
+color:white;
+height:100vh;
+padding:20px;
+
+ul{
+list-style:none;
+padding:0;
+}
+
+li{
+margin:15px 0;
+cursor:pointer;
+display:flex;
+gap:10px;
+}
+}

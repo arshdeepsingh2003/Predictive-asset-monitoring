@@ -1,5 +1,5 @@
-// API service functions
+import axios from "axios";
 
-export const apiService = {
-  // Add API functions here
-};
+export const api = axios.create({
+baseURL:"http://127.0.0.1:8000"
+})

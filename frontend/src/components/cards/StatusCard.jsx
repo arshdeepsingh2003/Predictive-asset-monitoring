@@ -1,11 +1,14 @@
-import React from 'react';
+export default function StatusCard({title,value}){
 
-const StatusCard = () => {
-  return (
-    <div>
-      <h1>Status Card</h1>
-    </div>
-  );
-};
+return(
 
-export default StatusCard;
+<div className="status-card">
+
+<h4>{title}</h4>
+
+<h2>{value}</h2>
+
+</div>
+
+)
+}

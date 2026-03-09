@@ -1,1 +1,18 @@
-// Main SCSS file
+@import "./base/variables";
+@import "./base/global";
+
+@import "./components/cards";
+@import "./components/navbar";
+@import "./components/sidebar";
+
+.layout{
+display:flex;
+}
+
+.main{
+flex:1;
+}
+
+.content{
+padding:20px;
+}
