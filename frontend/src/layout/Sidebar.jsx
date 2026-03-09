@@ -1,11 +1,34 @@
-import React from 'react';
+import { LayoutDashboard, Bell, BarChart3, Cpu } from "lucide-react";
 
-const Sidebar = () => {
-  return (
-    <div>
-      <h1>Sidebar Component</h1>
-    </div>
-  );
-};
+export default function Sidebar({setPage}){
 
-export default Sidebar;
+return(
+
+<div className="sidebar">
+
+<h2 className="logo">PredictiveAI</h2>
+
+<ul>
+
+<li onClick={()=>setPage("dashboard")}>
+<LayoutDashboard size={18}/> Dashboard
+</li>
+
+<li onClick={()=>setPage("assets")}>
+<Cpu size={18}/> Assets
+</li>
+
+<li onClick={()=>setPage("alerts")}>
+<Bell size={18}/> Alerts
+</li>
+
+<li onClick={()=>setPage("analytics")}>
+<BarChart3 size={18}/> Analytics
+</li>
+
+</ul>
+
+</div>
+
+)
+}
