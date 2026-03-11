@@ -1,26 +1,29 @@
-export default function EngineCard({engine}){
+export default function EngineCard({ engine }) {
 
-const getColor=()=>{
+  const severityColor = {
+    NORMAL: "#22c55e",
+    WARNING: "#f59e0b",
+    CRITICAL: "#ef4444"
+  };
 
-if(engine.severity==="CRITICAL") return "red"
-if(engine.severity==="WARNING") return "orange"
-return "green"
+  return (
+    <div className="engine-card">
 
-}
+      <h3>Engine {engine?.engine_id}</h3>
 
-return(
+      <p>RUL: {Math.round(engine?.predicted_rul || 0)}</p>
 
-<div className={`engine-card ${getColor()}`}>
+      <p>
+        Severity:
+        <span style={{ color: severityColor[engine?.severity] }}>
+          {" "}{engine?.severity}
+        </span>
+      </p>
 
-<h3>Engine {engine.engine_id}</h3>
+      <p>
+        Health: {engine?.health_index ? engine.health_index.toFixed(2) : "N/A"}
+      </p>
 
-<p>RUL: {Math.round(engine.predicted_rul)}</p>
-
-<p>Health: {engine.health_index.toFixed(2)}</p>
-
-<p>Status: {engine.severity}</p>
-
-</div>
-
-)
+    </div>
+  );
 }

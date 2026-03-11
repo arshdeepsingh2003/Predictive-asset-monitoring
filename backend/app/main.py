@@ -1,19 +1,25 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from threading import Thread
 
-# ✅ Background Engines
+# =====================================================
+# Background Services
+# =====================================================
+
 from app.services.realtime_engine import start_realtime_simulation
 from app.realtime.engine_stream import realtime_engine_stream
 
-# ✅ Route Imports
-from app.routes import (
-    predictions,
-    assets,
-    alerts,
-    dashboard,
-    realtime,
-    live_dashboard   # ✅ ADDED
-)
+
+# =====================================================
+# Route Imports
+# =====================================================
+
+from app.routes import predictions
+from app.routes import assets
+from app.routes import alerts
+from app.routes import realtime
+from app.routes import live_dashboard
+
 
 # Optional debug routes
 try:
@@ -23,6 +29,10 @@ except ImportError:
     DEBUG_AVAILABLE = False
 
 
+# =====================================================
+# FastAPI App
+# =====================================================
+
 app = FastAPI(
     title="Predictive Asset Monitoring API",
     description="ML-powered backend for RUL prediction and anomaly detection",
@@ -31,8 +41,22 @@ app = FastAPI(
 
 
 # =====================================================
-# ✅ AUTO START INDUSTRIAL BACKGROUND SERVICES
+# CORS Middleware (Fix React requests)
 # =====================================================
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],   # allow React dev server
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
+# =====================================================
+# Start Background Simulation Engines
+# =====================================================
+
 @app.on_event("startup")
 def start_background_services():
 
@@ -46,24 +70,36 @@ def start_background_services():
         daemon=True
     ).start()
 
-    print("✅ Engines + Streaming Started")
+    print("🚀 Engines + Streaming Started")
 
 
 # =====================================================
-# ✅ Include API Routers
+# REST API ROUTES
 # =====================================================
+
 app.include_router(predictions.router, prefix="/api")
 app.include_router(assets.router, prefix="/api")
 app.include_router(alerts.router, prefix="/api")
-app.include_router(dashboard.router, prefix="/api")
 
-# Existing realtime routes
+
+# =====================================================
+# Realtime HTTP Routes
+# =====================================================
+
 app.include_router(realtime.router)
 
-# ✅ REALTIME WEBSOCKET LIVE DASHBOARD
+
+# =====================================================
+# WebSocket ROUTE
+# =====================================================
+
 app.include_router(live_dashboard.router)
 
-# Optional debug
+
+# =====================================================
+# Optional Debug Routes
+# =====================================================
+
 if DEBUG_AVAILABLE:
     app.include_router(debug.router, prefix="/debug")
 
@@ -71,6 +107,7 @@ if DEBUG_AVAILABLE:
 # =====================================================
 # Root Health Check
 # =====================================================
+
 @app.get("/")
 def root():
     return {

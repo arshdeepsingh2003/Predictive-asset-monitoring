@@ -1,42 +1,47 @@
-import { useEffect, useState } from "react";
-import EngineCard from "../components/cards/EngineCard";
-import StatusCard from "../components/cards/StatusCard";
-import { connectLive } from "../services/socket";
+import { useEffect, useState } from "react"
+import { connectLive, disconnectLive } from "../services/socket"
+
+import StatusSummary from "../components/cards/StatusSummary"
+import EngineCard from "../components/cards/EngineCard"
 
 export default function Dashboard(){
 
-const [engines,setEngines] = useState([])
+  const [engines, setEngines] = useState([])
 
-useEffect(()=>{
+  useEffect(()=>{
 
-connectLive((data)=>{
-setEngines(data.assets)
-})
+    connectLive((assets)=>{
+      // assets is the array from websocket
+      setEngines(assets)
+    })
 
-},[])
+    return ()=>{
+      disconnectLive()
+    }
 
-return(
+  },[])
 
-<div>
+  return(
 
-<div className="status-grid">
+    <div>
 
-<StatusCard title="Total Engines" value={engines.length}/>
-<StatusCard title="Critical" value={engines.filter(e=>e.severity==="CRITICAL").length}/>
-<StatusCard title="Warning" value={engines.filter(e=>e.severity==="WARNING").length}/>
-<StatusCard title="Healthy" value={engines.filter(e=>e.severity==="NORMAL").length}/>
+      <h2>AI Predictive Maintenance</h2>
 
-</div>
+      <StatusSummary engines={engines}/>
 
-<div className="engine-grid">
+      <div className="engine-grid">
 
-{engines.map(engine=>(
-<EngineCard key={engine.engine_id} engine={engine}/>
-))}
+        {engines.map(engine=>(
+          <EngineCard
+            key={engine.engine_id}
+            engine={engine}
+          />
+        ))}
 
-</div>
+      </div>
 
-</div>
+    </div>
 
-)
+  )
+
 }
