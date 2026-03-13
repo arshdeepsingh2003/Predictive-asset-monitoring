@@ -11,8 +11,17 @@ export default function Dashboard(){
   useEffect(()=>{
 
     connectLive((assets)=>{
-      // assets is the array from websocket
-      setEngines(assets)
+
+      // prevent unnecessary rerender if data same
+      setEngines(prev => {
+
+        if(JSON.stringify(prev) === JSON.stringify(assets)){
+          return prev
+        }
+
+        return assets
+      })
+
     })
 
     return ()=>{
@@ -31,7 +40,7 @@ export default function Dashboard(){
 
       <div className="engine-grid">
 
-        {engines.map(engine=>(
+        {engines.map(engine => (
           <EngineCard
             key={engine.engine_id}
             engine={engine}

@@ -6,7 +6,7 @@ from threading import Thread
 # Background Services
 # =====================================================
 
-from app.services.realtime_engine import start_realtime_simulation
+# ONLY use the ML engine stream
 from app.realtime.engine_stream import realtime_engine_stream
 
 
@@ -46,7 +46,7 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],   # allow React dev server
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -54,23 +54,18 @@ app.add_middleware(
 
 
 # =====================================================
-# Start Background Simulation Engines
+# Start Background Simulation Engine
 # =====================================================
 
 @app.on_event("startup")
 def start_background_services():
 
     Thread(
-        target=start_realtime_simulation,
-        daemon=True
-    ).start()
-
-    Thread(
         target=realtime_engine_stream,
         daemon=True
     ).start()
 
-    print("🚀 Engines + Streaming Started")
+    print("🚀 Engine Stream Started")
 
 
 # =====================================================
