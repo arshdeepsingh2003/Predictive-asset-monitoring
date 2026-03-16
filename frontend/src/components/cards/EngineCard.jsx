@@ -1,29 +1,56 @@
+import "../../styles/components/_cards.scss"
+
 export default function EngineCard({ engine }) {
 
-  const severityColor = {
-    NORMAL: "#22c55e",
-    WARNING: "#f59e0b",
-    CRITICAL: "#ef4444"
-  };
+  const healthPercent = engine?.health_index
+    ? Math.round(engine.health_index * 100)
+    : 0
+
+  const severityClass = engine?.severity
+    ? engine.severity.toLowerCase()
+    : "normal"
 
   return (
-    <div className="engine-card">
 
-      <h3>Engine {engine?.engine_id}</h3>
+    <div className={`engine-card ${severityClass}`}>
 
-      <p>RUL: {Math.round(engine?.predicted_rul || 0)}</p>
+      <div className="engine-header">
 
-      <p>
-        Severity:
-        <span style={{ color: severityColor[engine?.severity] }}>
-          {" "}{engine?.severity}
+        <h3>Engine {engine?.engine_id}</h3>
+
+        <span className={`badge ${severityClass}`}>
+          {engine?.severity}
         </span>
-      </p>
 
-      <p>
-        Health: {engine?.health_index ? engine.health_index.toFixed(2) : "N/A"}
-      </p>
+      </div>
+
+      <div className="engine-metrics">
+
+        <p>Cycle: {engine?.cycle}</p>
+
+        <p>RUL: {Math.round(engine?.predicted_rul || 0)}</p>
+
+      </div>
+
+      {/* HEALTH GAUGE */}
+
+      <div className="health-section">
+
+        <span>Health</span>
+
+        <div className="health-bar">
+
+          <div
+            className="health-fill"
+            style={{ width: `${healthPercent}%` }}
+          />
+
+        </div>
+
+        <span>{healthPercent}%</span>
+
+      </div>
 
     </div>
-  );
+  )
 }

@@ -1,16 +1,18 @@
-import Navbar from "./Navbar";
-import Sidebar from "./Sidebar";
+import Navbar from "./Navbar"
+import Sidebar from "./Sidebar"
+import "../styles/components/layout.scss"
 
-export default function Layout({children,setPage}){
+export default function Layout({ children, setPage }) {
 
-  return(
+  return (
+
     <div className="layout">
 
-      <Sidebar setPage={setPage}/>
+      <Sidebar setPage={setPage} />
 
       <div className="main">
 
-        <Navbar/>
+        <Navbar />
 
         <div className="content">
           {children}
@@ -19,5 +21,6 @@ export default function Layout({children,setPage}){
       </div>
 
     </div>
+
   )
 }

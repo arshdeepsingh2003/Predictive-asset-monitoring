@@ -5,9 +5,24 @@ color:white;
 height:100vh;
 padding:20px;
 
+/* FIX SIDEBAR */
+
+position:fixed;
+left:0;
+top:0;
+
+/* keep it above content */
+
+z-index:1000;
+
+/* allow internal scroll if menu grows */
+
+overflow-y:auto;
+
 ul{
 list-style:none;
 padding:0;
+margin-top:30px;
 }
 
 li{
@@ -15,5 +30,16 @@ margin:15px 0;
 cursor:pointer;
 display:flex;
 gap:10px;
+align-items:center;
+font-size:15px;
+padding:8px 10px;
+border-radius:6px;
+transition:0.2s;
+}
+
+/* hover effect */
+
+li:hover{
+background:#1e293b;
 }
 }

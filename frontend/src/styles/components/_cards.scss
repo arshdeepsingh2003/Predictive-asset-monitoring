@@ -1,28 +1,49 @@
+/* SUMMARY GRID */
+
 .summary-grid{
 display:grid;
-grid-template-columns:repeat(4,1fr);
+grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
 gap:20px;
 margin-bottom:25px;
 }
 
+/* SUMMARY CARDS */
+
 .summary-card{
 background:white;
-padding:20px;
+padding:18px;
 border-radius:12px;
 box-shadow:0 4px 12px rgba(0,0,0,0.05);
+text-align:center;
+transition:0.3s;
 }
 
-.summary-card.green{
-border-left:5px solid #22c55e;
+.summary-card:hover{
+transform:translateY(-4px);
+box-shadow:0 8px 20px rgba(0,0,0,0.12);
 }
 
-.summary-card.orange{
-border-left:5px solid #f59e0b;
+.summary-card.total{
+border-top:4px solid #1976d2;
 }
 
-.summary-card.red{
-border-left:5px solid #ef4444;
+.summary-card.normal{
+border-top:4px solid #22c55e;
 }
+
+.summary-card.warning{
+border-top:4px solid #f59e0b;
+}
+
+.summary-card.critical{
+border-top:4px solid #ef4444;
+}
+
+.summary-card.health{
+border-top:4px solid #6a1b9a;
+}
+
+/* ENGINE GRID */
 
 .engine-grid{
 display:grid;
@@ -30,32 +51,22 @@ grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
 gap:16px;
 }
 
+/* ENGINE CARD */
+
 .engine-card{
 background:white;
-border-radius:10px;
+border-radius:12px;
 padding:18px;
 box-shadow:0 4px 10px rgba(0,0,0,0.06);
-transition:0.2s;
+transition:all 0.3s ease;
 }
 
 .engine-card:hover{
-transform:translateY(-3px);
+transform:translateY(-5px);
+box-shadow:0 8px 25px rgba(0,0,0,0.15);
 }
 
-.engine-card.green{
-background:linear-gradient(135deg,#22c55e,#4ade80);
-color:white;
-}
-
-.engine-card.orange{
-background:linear-gradient(135deg,#f59e0b,#fbbf24);
-color:white;
-}
-
-.engine-card.red{
-background:linear-gradient(135deg,#ef4444,#f87171);
-color:white;
-}
+/* HEADER */
 
 .engine-header{
 display:flex;
@@ -64,9 +75,56 @@ align-items:center;
 margin-bottom:10px;
 }
 
-.severity{
-font-size:12px;
+/* ENGINE METRICS */
+
+.engine-metrics{
+margin-bottom:10px;
+font-size:14px;
+}
+
+/* BADGES */
+
+.badge{
 padding:4px 10px;
 border-radius:20px;
-background:rgba(255,255,255,0.2);
+font-size:12px;
+font-weight:600;
+}
+
+.badge.normal{
+background:#e8f5e9;
+color:#2e7d32;
+}
+
+.badge.warning{
+background:#fff3e0;
+color:#ef6c00;
+}
+
+.badge.critical{
+background:#ffebee;
+color:#c62828;
+}
+
+/* HEALTH BAR */
+
+.health-section{
+margin-top:10px;
+font-size:13px;
+}
+
+.health-bar{
+width:100%;
+height:8px;
+background:#eee;
+border-radius:6px;
+margin:4px 0;
+overflow:hidden;
+}
+
+.health-fill{
+height:8px;
+border-radius:6px;
+background:linear-gradient(90deg,#4caf50,#ff9800,#f44336);
+transition:width 0.4s ease;
 }

@@ -1,16 +1,16 @@
 export default function Navbar(){
 
-return(
+  return(
 
-<div className="navbar">
+    <div className="navbar">
 
-<h3>Industrial Predictive Maintenance</h3>
+      <h3>Industrial Predictive Maintenance</h3>
 
-<div className="user">
-Admin
-</div>
+      <div className="user">
+        Admin
+      </div>
 
-</div>
+    </div>
 
-)
+  )
 }
