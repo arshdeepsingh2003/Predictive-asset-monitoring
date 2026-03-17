@@ -131,10 +131,7 @@ export default function Assets(){
               Severity {sortKey==="severity" && (sortAsc ? "▲" : "▼")}
             </th>
 
-            <th>
-              Details
-            </th>
-
+            
           </tr>
 
         </thead>
@@ -176,15 +173,7 @@ export default function Assets(){
 
               <td>
 
-                <button
-                  className="view-btn"
-                  onClick={()=>setSelected(asset)}
-                >
-
-                  View
-
-                </button>
-
+                
               </td>
 
             </tr>
